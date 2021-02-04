@@ -4,4 +4,14 @@
  * @author Alva Persson
  * @version 1.0.0
  */
-// Här talar jag om vilka resurser min applikation erbjuder, här pusslas alla routes som finns ihop.
+
+import express from 'express'
+
+export const router = express.Router()
+
+router.use('*', (req, res, next) => {
+  const error = new Error()
+  error.status = 404
+  error.message = 'Not Found'
+  next(error)
+})

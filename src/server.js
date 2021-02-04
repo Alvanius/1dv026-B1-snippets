@@ -10,6 +10,7 @@ import hbs from 'express-hbs'
 import logger from 'morgan'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
+import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
 
 /**
@@ -22,8 +23,7 @@ const main = async () => {
   } catch (error) {
     console.log(error.message)
     process.exitCode = 1
-    // If no database connection can be established there´s no point in starting up the server.
-    return
+    return // If no database connection can be established there´s no point in starting up the server.
   }
 
   const PORT = process.env.PORT || 5000
@@ -33,7 +33,7 @@ const main = async () => {
   const app = express()
 
   // ------------------------------------
-  //          Middlewares section
+  //         Middleware section
   // ------------------------------------
   app.use(logger('dev'))
 
@@ -52,8 +52,21 @@ const main = async () => {
 
   // Serve static files from the public directory.
   app.use(express.static(join(directoryFullName, '..', 'public')))
+
+  // Register routes.
+  app.use('/', router)
+
+  // Error handler.
+  app.use(function (err, req, res, next) {
+    // TEMPORARY!
+    // For now, just add basic rendering of the error message when an error occurs.
+    res
+      .status(err.status || 500)
+      .send(err.message)
+  })
+
   // ------------------------------------
-  //      End of Middlewares section
+  //      End of Middleware section
   // ------------------------------------
 
   // Starts the HTTP server.
