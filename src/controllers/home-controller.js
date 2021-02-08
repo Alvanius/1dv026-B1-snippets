@@ -34,7 +34,12 @@ export class HomeController {
     try {
       const user = await User.authenticate(req.body.username, req.body.password)
       console.log('user is authenticated')
-      res.redirect('./snippets')
+      req.session.regenerate(() => {
+        req.session.user = user.username
+        req.session.userID = user._id
+        req.session.userIsLoggedIn = true
+        res.redirect('./snippets')
+      })
     } catch (error) {
       console.log('something went wrong logging in: ', error.message)
       res.redirect('./')
@@ -86,7 +91,9 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   logout (req, res, next) {
-    // make sure session is ended beforew reaching this point
+    req.session.destroy(() => {
+      // cannot access session here
+    })
     res.render('home/index', { links: '<a href="/#" id="logo" id="current">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up">Sign up</a>' })
   }
 

@@ -12,6 +12,6 @@ export const router = express.Router()
 
 const controller = new SnippetsController()
 
-router.get('/', controller.snippetsIndex)
-router.get('/my-page', controller.mypageIndex)
-router.get('/new', controller.newSnippetIndex)
+router.get('/', controller.authenticate, controller.snippetsIndex)
+router.get('/my-page', controller.authenticate, controller.mypageIndex)
+router.get('/new', controller.authenticate, controller.newSnippetIndex)

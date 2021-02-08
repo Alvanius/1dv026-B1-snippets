@@ -42,4 +42,22 @@ export class SnippetsController {
   newSnippetIndex (req, res, next) {
     res.render('snippets/new', { links: '<a id="logo" href="/snippets">Snippets</a><a href="snippets/my-page" id="current">My page</a><a href="/log-out">Log out</a>' })
   }
+
+  /**
+   * Renders the snippet page.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  authenticate (req, res, next) {
+    console.log('cookie looks like: ', req.session)
+    if (req.session.userIsLoggedIn) {
+      console.log('user seems to be logged in: ', req.session.user)
+      console.log('userid is: ', req.session.userID)
+    } else {
+      console.log('dont believe user is logged in', req.session.user)
+    }
+    next()
+  }
 }
