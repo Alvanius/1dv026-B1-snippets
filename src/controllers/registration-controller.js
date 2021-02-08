@@ -31,7 +31,7 @@ export class RegistrationController {
       console.log('ERROR something went wrong on registration ' + error.message)
     } finally {
       // if we want to automatically fill in the user's username use this below:
-      res.render('home/index', { username: req.body.username, links: '<a href="/" id="current">Login</a><a href="/register">Register</a>' })
+      res.render('home/index', { username: req.body.username, links: '<a href="/log-in" id="current">Login</a><a href="/sign-up">Sign-up</a>' })
       // if not, just  res.redirect('./')
     }
   }
@@ -44,6 +44,6 @@ export class RegistrationController {
    * @param {Function} next - Express next middleware function.
    */
   registerIndex (req, res, next) {
-    res.render('registration/index', { links: '<a href="/">Login</a><a href="/register" id="current">Register</a>' })
+    res.render('registration/index', { links: '<a href="/log-in">Login</a><a href="/sign-up" id="current">Sign-up</a>' })
   }
 }

@@ -13,7 +13,7 @@ export const router = express.Router()
 
 router.use('/', homeRouter)
 
-router.use('/register', registrationRouter)
+/* router.use('/register', registrationRouter) */
 
 router.use('*', (req, res, next) => {
   const error = new Error()

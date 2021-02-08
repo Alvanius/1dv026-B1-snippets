@@ -12,5 +12,7 @@ export const router = express.Router()
 
 const controller = new HomeController()
 
-router.post('/log-in', controller.loginPost)
 router.get('/', controller.index)
+router.get('/sign-up', controller.signupIndex)
+router.post('/log-in', controller.loginPost)
+router.post('/sign-up', controller.signupPost)
