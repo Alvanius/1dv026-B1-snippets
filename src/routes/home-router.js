@@ -14,5 +14,7 @@ const controller = new HomeController()
 
 router.get('/', controller.index)
 router.get('/sign-up', controller.signupIndex)
+router.get('/log-out', controller.logout)
 router.post('/log-in', controller.loginPost)
 router.post('/sign-up', controller.signupPost)
+router.get('/browse-snippets', controller.guestSnippetsIndex)

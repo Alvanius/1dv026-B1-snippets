@@ -36,6 +36,10 @@ const main = async () => {
   //         Middleware section
   // ------------------------------------
   app.use(logger('dev'))
+  app.use(function (req, res, next) {
+    res.locals.baseURL = '/'
+    next()
+  })
 
   app.set('view engine', 'hbs')
 

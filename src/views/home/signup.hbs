@@ -1,0 +1,24 @@
+ <div class="container onewrapper">
+            <div class="start-form shadow p-3 mb-5 p-4">
+                <h2 class="mb-3 over-form-text">Register here</h2>
+                <form method="post" action="./sign-up">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" maxlength="40" autocomplete="off" required name="username" class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" required class="form-control" id="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pwd" class="form-label">Password</label>
+                        <input type="password" name="password" minlength="10" required class="form-control" id="pwd">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmpwd" class="form-label">Re-enter password</label>
+                        <input type="password" name="confirmpassword" minlength="10" required class="form-control" id="confirmpwd">
+                    </div>
+                    <button type="submit" class="mt-4 btn btn-dark">Submit</button>
+                </form>
+            </div>
+    </div>

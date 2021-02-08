@@ -19,7 +19,7 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   index (req, res, next) {
-    res.render('home/index', { links: '<a href="/sign-up">Sign-up</a>' })
+    res.render('home/index', { links: '<a href="/#" id="logo" id="current">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up">Sign-up</a>' })
   }
 
   /**
@@ -34,11 +34,11 @@ export class HomeController {
     try {
       const user = await User.authenticate(req.body.username, req.body.password)
       console.log('user is authenticated')
+      res.redirect('./snippets')
     } catch (error) {
       console.log('something went wrong logging in: ', error.message)
+      res.redirect('./')
     }
-
-    res.redirect('./')
   }
 
   /**
@@ -62,7 +62,7 @@ export class HomeController {
       console.log('ERROR something went wrong on registration ' + error.message)
     } finally {
       // if we want to automatically fill in the user's username use this below:
-      res.render('/', { username: req.body.username, links: '<a href="/sign-up">Sign up</a>' })
+      res.render('/', { username: req.body.username, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' })
       // if not, just  res.redirect('./')
     }
   }
@@ -75,6 +75,30 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   signupIndex (req, res, next) {
-    res.render('home/signup', { links: '<a href="/sign-up" id="current">Sign up</a>' })
+    res.render('home/signup', { links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up" id="current">Sign up</a>' })
+  }
+
+  /**
+   * Renders the home page after logging out.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  logout (req, res, next) {
+    // make sure session is ended beforew reaching this point
+    res.render('home/index', { links: '<a href="/#" id="logo" id="current">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up">Sign up</a>' })
+  }
+
+  /**
+   * Renders the home page after logging out.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  guestSnippetsIndex (req, res, next) {
+    // make sure session is ended beforew reaching this point
+    res.render('home/browsesnippets', { links: '<a href="/#" id="logo">Home</a><a id="current" href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' })
   }
 }
