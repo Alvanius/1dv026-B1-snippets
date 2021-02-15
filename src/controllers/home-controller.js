@@ -42,6 +42,7 @@ export class HomeController {
       })
     } catch (error) {
       console.log('something went wrong logging in: ', error.message)
+      req.session.flash = { type: 'danger', text: 'Could not log in' }
       res.redirect('./')
     }
   }
@@ -63,12 +64,15 @@ export class HomeController {
         password: req.body.password
       })
       await user.save()
+      req.session.flash = { type: 'success', text: `Registration completed, welcome ${req.body.username}` }
+      // if we want to automatically fill in the user's username use this below:
+      /* res.render('home/index', { username: req.body.username, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' }) */
+      // if not, just
+      res.redirect('./')
     } catch (error) {
       console.log('ERROR something went wrong on registration ' + error.message)
-    } finally {
-      // if we want to automatically fill in the user's username use this below:
-      res.render('/', { username: req.body.username, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' })
-      // if not, just  res.redirect('./')
+      req.session.flash = { type: 'danger', text: 'Registration failed, please try again' }
+      res.redirect('./sign-up')
     }
   }
 
@@ -92,9 +96,8 @@ export class HomeController {
    */
   logout (req, res, next) {
     req.session.destroy(() => {
-      // cannot access session here
+      res.render('home/index', { links: '<a href="/#" id="logo" id="current">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up">Sign up</a>' })
     })
-    res.render('home/index', { links: '<a href="/#" id="logo" id="current">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up">Sign up</a>' })
   }
 
   /**

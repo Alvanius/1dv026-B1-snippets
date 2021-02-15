@@ -37,10 +37,6 @@ const main = async () => {
   //         Middleware section
   // ------------------------------------
   app.use(logger('dev'))
-  app.use(function (req, res, next) {
-    res.locals.baseURL = '/'
-    next()
-  })
 
   app.set('view engine', 'hbs')
 
@@ -72,6 +68,16 @@ const main = async () => {
   /*  app.set('trust proxy', 1) */
 
   app.use(session(sessionOptions))
+
+  app.use(function (req, res, next) {
+    if (req.session.flash) {
+      res.locals.flash = req.session.flash
+      delete req.session.flash
+    }
+
+    res.locals.baseURL = '/'
+    next()
+  })
 
   // Register routes.
   app.use('/', router)
