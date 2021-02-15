@@ -1,0 +1,12 @@
+{{#if loggedIn }}
+<a id="logo" href="snippets/my-page" class="{{#if active.page}}active{{/if}}">My page</a>
+<a href="/snippets" class="{{#if active.snippets}}active{{/if}}">Snippets</a>
+<a href="snippets/new" class="{{#if active.new}}active{{/if}}">New</a>
+<a href="/log-out">Log out</a>
+{{/if}}
+
+{{#unless loggedIn }}
+<a href="/#" id="logo">Home</a>
+<a href="/browse-snippets" class="{{#if active.browse}}active{{/if}}">Snippets</a>
+<a href="/sign-up" class="{{#if active.signup}}active{{/if}}">Sign-up</a>
+{{/unless}}

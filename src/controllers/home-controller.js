@@ -39,7 +39,7 @@ export class HomeController {
         req.session.user = user.username
         req.session.userID = user._id
         req.session.userIsLoggedIn = true
-        res.redirect('./snippets')
+        res.redirect('./snippets/my-page')
       })
     } catch (error) {
       console.log('something went wrong logging in: ', error.message)
@@ -71,7 +71,7 @@ export class HomeController {
       await user.save()
       res.locals.flash = { type: 'success', text: 'Success! Registration completed.' }
       // if we want to automatically fill in the user's username use this below:
-      res.render('home/index', { username: req.body.username, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' })
+      res.render('home/index', { username: req.body.username })
       // if not, just res.redirect('./')
     } catch (error) {
       let infoMessage = 'Registration failed, please try again'
@@ -89,7 +89,7 @@ export class HomeController {
         pwd: req.body.password,
         confirmpwd: req.body.confirmpassword
       }
-      res.render('home/signup', { data, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up" id="current">Sign up</a>' })
+      res.render('home/signup', { data, active: { signup: true } })
     }
   }
 
@@ -101,7 +101,7 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   signupIndex (req, res, next) {
-    res.render('home/signup', { links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up" id="current">Sign up</a>' })
+    res.render('home/signup', { active: { signup: true } })
   }
 
   /**
@@ -113,7 +113,7 @@ export class HomeController {
    */
   logout (req, res, next) {
     req.session.destroy(() => {
-      res.render('home/index', { links: '<a href="/#" id="logo" id="current">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up">Sign up</a>' })
+      res.render('home/index')
     })
   }
 
@@ -125,7 +125,7 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   guestSnippetsIndex (req, res, next) {
-    // make sure session is ended beforew reaching this point
-    res.render('home/browsesnippets', { links: '<a href="/#" id="logo">Home</a><a id="current" href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' })
+    /* res.locals.active = { browse: true} */
+    res.render('home/browsesnippets', { active: { browse: true } })
   }
 }

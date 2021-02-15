@@ -26,7 +26,7 @@ export class SnippetsController {
         })),
       user: req.session.user
     }
-    res.render('snippets/index', { links: '<a id="logo" href="/snippets" id="current">Snippets</a><a href="snippets/my-page">My page</a><a href="/log-out">Log out</a>', viewData })
+    res.render('snippets/index', { viewData, active: { snippets: true } })
   }
 
   /**
@@ -45,7 +45,7 @@ export class SnippetsController {
         })),
       user: req.session.user
     }
-    res.render('snippets/mypage', { links: '<a id="logo" href="/snippets">Snippets</a><a href="snippets/my-page" id="current" >My page</a><a href="/log-out">Log out</a>', viewData })
+    res.render('snippets/mypage', { viewData })
   }
 
   /**
@@ -56,7 +56,7 @@ export class SnippetsController {
    * @param {Function} next - Express next middleware function.
    */
   newSnippetIndex (req, res, next) {
-    res.render('snippets/new', { links: '<a id="logo" href="/snippets">Snippets</a><a href="snippets/my-page" id="current">My page</a><a href="/log-out">Log out</a>', user: req.session.user })
+    res.render('snippets/new', { active: { new: true }, user: req.session.user })
   }
 
   /**
@@ -98,6 +98,7 @@ export class SnippetsController {
     if (req.session.userIsLoggedIn) {
       console.log('user seems to be logged in: ', req.session.user)
       console.log('userid is: ', req.session.userID)
+      res.locals.loggedIn = true
       next()
     } else {
       console.log('dont believe user is logged in')
