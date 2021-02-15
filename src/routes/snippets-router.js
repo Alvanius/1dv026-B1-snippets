@@ -1,7 +1,7 @@
 /**
  * Registration routes.
  *
- * @author Mats Loock
+ * @author Alva Persson
  * @version 1.0.0
  */
 

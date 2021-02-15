@@ -6,6 +6,7 @@
  */
 
 import { User } from '../models/user.js'
+import { PasswordMatchError } from '../passwordMatchError.js'
 
 /**
  * Encapsulates a controller.
@@ -44,6 +45,7 @@ export class HomeController {
       console.log('something went wrong logging in: ', error.message)
       req.session.flash = { type: 'danger', text: 'Could not log in' }
       res.redirect('./')
+      // Separate wrong credentials from other errors maybe?
     }
   }
 
@@ -58,21 +60,36 @@ export class HomeController {
    */
   async signupPost (req, res, next) {
     try {
+      if (req.body.password !== req.body.confirmpassword) {
+        throw new PasswordMatchError()
+      }
       const user = new User({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
       })
       await user.save()
-      req.session.flash = { type: 'success', text: `Registration completed, welcome ${req.body.username}` }
+      res.locals.flash = { type: 'success', text: 'Success! Registration completed.' }
       // if we want to automatically fill in the user's username use this below:
-      /* res.render('home/index', { username: req.body.username, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' }) */
-      // if not, just
-      res.redirect('./')
+      res.render('home/index', { username: req.body.username, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets" id="current">Snippets</a><a href="/sign-up">Sign up</a>' })
+      // if not, just res.redirect('./')
     } catch (error) {
+      let infoMessage = 'Registration failed, please try again'
+      if (error.code === 11000) {
+        infoMessage = `The username ${error.keyValue.username} is already taken. Think of something more original and try again!`
+      } else if (error instanceof PasswordMatchError) {
+        infoMessage = error.message + ' Try again.'
+      }
       console.log('ERROR something went wrong on registration ' + error.message)
-      req.session.flash = { type: 'danger', text: 'Registration failed, please try again' }
-      res.redirect('./sign-up')
+      res.locals.flash = { type: 'danger', text: infoMessage }
+
+      const data = {
+        name: req.body.username,
+        email: req.body.email,
+        pwd: req.body.password,
+        confirmpwd: req.body.confirmpassword
+      }
+      res.render('home/signup', { data, links: '<a href="/#" id="logo">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up" id="current">Sign up</a>' })
     }
   }
 
