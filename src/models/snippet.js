@@ -8,11 +8,9 @@
 import mongoose from 'mongoose'
 
 const snippetSchema = new mongoose.Schema({
-  user: {
+  author: {
     type: String,
-    unique: true,
     required: true,
-    trim: true,
     minlength: 1
   },
   title: {
@@ -23,7 +21,8 @@ const snippetSchema = new mongoose.Schema({
   },
   text: {
     type: String,
-    required: true
+    required: true,
+    minlength: 1
   }
 }, { timestamps: true })
 

@@ -1,1 +1,17 @@
 <h1 class="py-5" id="welcome">The snippet page</h1>
+
+<h2>Nice to see you {{viewData.user}}</h2>
+
+{{#if viewData.snippets.length }}
+<h2>Browse all snippets</h2>
+{{#each viewData.snippets}}
+    <div class="snippet">
+    <strong>{{this.title}}</strong> 
+    <p>{{this.text}}</p>
+    </div>
+{{/each}}
+{{/if}}
+
+{{#unless viewData.snippets.length }}
+<h2>No snippets yet</h2>
+{{/unless}}

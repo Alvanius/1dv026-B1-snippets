@@ -2,10 +2,12 @@
   <span class="far fa-plus-square"></span> New Snippet
 </h1>
 
-<form method="post" action="./snippet/create">
+<form method="post" action="./snippets/create">
   <div class="form-group">
       <input type="text" class="form-control" name="snippettitle" placeholder="Title" required="required" autofocus="autofocus" />
     <input type="textarea" class="form-control" name="snippettext" placeholder="Text here" required="required" autofocus="autofocus" />
   </div>
   <button type="submit" class="btn btn-lg btn-dark">Create Snippet</button>
 </form>
+
+<h2>Nice to see you {{user}}</h2>

@@ -17,8 +17,16 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  snippetsIndex (req, res, next) {
-    res.render('snippets/index', { links: '<a id="logo" href="/snippets" id="current">Snippets</a><a href="snippets/my-page">My page</a><a href="/log-out">Log out</a>', user: req.session.user })
+  async snippetsIndex (req, res, next) {
+    const viewData = {
+      snippets: (await Snippet.find({}))
+        .map(snippet => ({
+          title: snippet.title,
+          text: snippet.text
+        })),
+      user: req.session.user
+    }
+    res.render('snippets/index', { links: '<a id="logo" href="/snippets" id="current">Snippets</a><a href="snippets/my-page">My page</a><a href="/log-out">Log out</a>', viewData })
   }
 
   /**
@@ -28,8 +36,16 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  mypageIndex (req, res, next) {
-    res.render('snippets/mypage', { links: '<a id="logo" href="/snippets">Snippets</a><a href="snippets/my-page" id="current" >My page</a><a href="/log-out">Log out</a>', user: req.session.user })
+  async mypageIndex (req, res, next) {
+    const viewData = {
+      snippets: (await Snippet.find({ author: req.session.userID }))
+        .map(snippet => ({
+          title: snippet.title,
+          text: snippet.text
+        })),
+      user: req.session.user
+    }
+    res.render('snippets/mypage', { links: '<a id="logo" href="/snippets">Snippets</a><a href="snippets/my-page" id="current" >My page</a><a href="/log-out">Log out</a>', viewData })
   }
 
   /**
@@ -41,6 +57,33 @@ export class SnippetsController {
    */
   newSnippetIndex (req, res, next) {
     res.render('snippets/new', { links: '<a id="logo" href="/snippets">Snippets</a><a href="snippets/my-page" id="current">My page</a><a href="/log-out">Log out</a>', user: req.session.user })
+  }
+
+  /**
+   * Renders the snippet page.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async createSnippetPost (req, res, next) {
+    console.log('here in snippetcreatepost')
+    console.log('user id: ', req.session.userID)
+    try {
+      const snippet = new Snippet({
+        author: req.session.userID,
+        title: req.body.snippettitle,
+        text: req.body.snippettext
+      })
+      await snippet.save()
+      req.session.flash = { type: 'success', text: 'Snippet created!' }
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: 'Could not create snippet' }
+      console.log('an error when creating new snippet occured: ', error.message)
+      console.log(error)
+    } finally {
+      res.redirect('./my-page')
+    }
   }
 
   /**
