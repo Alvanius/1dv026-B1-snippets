@@ -111,19 +111,6 @@ export class HomeController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  logout (req, res, next) {
-    req.session.destroy(() => {
-      res.render('home/index')
-    })
-  }
-
-  /**
-   * Renders the home page after logging out.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   * @param {Function} next - Express next middleware function.
-   */
   guestSnippetsIndex (req, res, next) {
     /* res.locals.active = { browse: true} */
     res.render('home/browsesnippets', { active: { browse: true } })
