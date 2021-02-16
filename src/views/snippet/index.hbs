@@ -1,0 +1,19 @@
+{{#if viewData.snippet.length }}
+<div class="snippetwrapper">
+{{#each viewData.snippet}}
+    <div class="snippet solosnippet">
+    <strong>{{this.title}}</strong> 
+    <p>{{this.text}}</p>
+    </div>
+{{/each}}
+{{/if}}
+
+{{#if info }}
+<h1>Creator of the snippet is: {{info.author}}</h1>
+<h1>Author is viewing this rn : {{info.status}}</h1>
+{{/if}}
+
+{{#if snippetOwner }}
+<a href="./snippet/{{id}}/edit">Edit</a>
+<a href="./snippet/{{id}}/delete">Delete</a>
+{{/if}}

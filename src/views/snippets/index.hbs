@@ -4,12 +4,7 @@
 
 {{#if viewData.snippets.length }}
 <h2>Browse all snippets</h2>
-{{#each viewData.snippets}}
-    <div class="snippet">
-    <strong>{{this.title}}</strong> 
-    <p>{{this.text}}</p>
-    </div>
-{{/each}}
+{{>snippets}}
 {{/if}}
 
 {{#unless viewData.snippets.length }}

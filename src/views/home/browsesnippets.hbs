@@ -1,1 +1,11 @@
 <h1>Snippets you see when not logged in</h1>
+
+{{#if viewData.snippets.length }}
+<h2>All snippets</h2>
+<div class="snippetwrapper">
+{{>snippets}}
+{{/if}}
+
+{{#unless viewData.snippets.length }}
+<h2>No snippets yet</h2>
+{{/unless}}

@@ -1,11 +1,12 @@
 /**
- * Registration controller.
+ * Snippets controller.
  *
  * @author Alva Persson
  * @version 1.0.0
  */
 
 import { Snippet } from '../models/snippet.js'
+
 /**
  * Encapsulates a controller.
  */
@@ -22,7 +23,8 @@ export class SnippetsController {
       snippets: (await Snippet.find({}))
         .map(snippet => ({
           title: snippet.title,
-          text: snippet.text
+          text: snippet.text,
+          id: snippet._id
         })),
       user: req.session.user
     }
@@ -41,7 +43,8 @@ export class SnippetsController {
       snippets: (await Snippet.find({ author: req.session.userID }))
         .map(snippet => ({
           title: snippet.title,
-          text: snippet.text
+          text: snippet.text,
+          id: snippet._id
         })),
       user: req.session.user
     }

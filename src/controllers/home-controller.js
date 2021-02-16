@@ -7,6 +7,7 @@
 
 import { User } from '../models/user.js'
 import { PasswordMatchError } from '../passwordMatchError.js'
+import { Snippet } from '../models/snippet.js'
 
 /**
  * Encapsulates a controller.
@@ -111,8 +112,16 @@ export class HomeController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  guestSnippetsIndex (req, res, next) {
+  async guestSnippetsIndex (req, res, next) {
     /* res.locals.active = { browse: true} */
-    res.render('home/browsesnippets', { active: { browse: true } })
+    const viewData = {
+      snippets: (await Snippet.find({}))
+        .map(snippet => ({
+          title: snippet.title,
+          text: snippet.text,
+          id: snippet._id
+        }))
+    }
+    res.render('home/browsesnippets', { viewData, active: { browse: true } })
   }
 }

@@ -1,15 +1,7 @@
 <a href="./snippets/new">New snippet</a>
 
 <h1>My snippets</h1>
-
-{{#if viewData.snippets.length }}
-{{#each viewData.snippets}}
-    <div class="snippet">
-    <strong>{{this.title}}</strong> 
-    <p>{{this.text}}</p>
-    </div>
-{{/each}}
-{{/if}}
+{{>snippets}}
 
 {{#unless viewData.snippets.length }}
 <h2>Nice to see you {{viewData.user}}. You dont have any snippets yet</h2>
