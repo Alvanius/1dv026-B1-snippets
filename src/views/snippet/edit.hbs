@@ -1,0 +1,8 @@
+<form method="post" action="./snippet/{{viewData.id}}/update">
+  <div class="form-group">
+    <input type="hidden" name="id" value="{{viewData.id}}" />
+      <input type="text" class="form-control" name="snippettitle" value="{{viewData.title}}" required="required" autofocus="autofocus" />
+    <input type="textarea" class="form-control" name="snippettext" value="{{viewData.text}}" required="required" autofocus="autofocus" />
+  </div>
+  <button type="submit" class="btn btn-lg btn-dark">Update snippet</button>
+</form>

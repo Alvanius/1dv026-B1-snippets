@@ -1,12 +1,7 @@
-{{#if viewData.snippet.length }}
-<div class="snippetwrapper">
-{{#each viewData.snippet}}
-    <div class="snippet solosnippet">
-    <strong>{{this.title}}</strong> 
-    <p>{{this.text}}</p>
-    </div>
-{{/each}}
-{{/if}}
+<div class="snippet solosnippet">
+<strong>{{viewData.title}}</strong> 
+<p>{{viewData.text}}</p>
+</div>
 
 {{#if info }}
 <h1>Creator of the snippet is: {{info.author}}</h1>
@@ -14,6 +9,6 @@
 {{/if}}
 
 {{#if snippetOwner }}
-<a href="./snippet/{{id}}/edit">Edit</a>
-<a href="./snippet/{{id}}/delete">Delete</a>
+<a href="./snippet/{{viewData.id}}/edit">Edit</a>
+<a href="./snippet/{{viewData.id}}/remove">Delete</a>
 {{/if}}

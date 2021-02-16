@@ -12,4 +12,10 @@ export const router = express.Router()
 
 const controller = new ViewSnippetController()
 
-router.get('/:id', controller.viewSnippetIndex)
+router.get('/:id', controller.snippetIndex)
+
+router.get('/:id/edit', controller.edit)
+router.post('/:id/update', controller.update)
+
+router.get('/:id/remove', controller.remove)
+router.post('/:id/delete', controller.delete)
