@@ -75,6 +75,11 @@ const main = async () => {
       delete req.session.flash
     }
 
+    if (req.session.delete) {
+      res.locals.delete = req.session.delete
+      delete req.session.delete
+    }
+
     res.locals.baseURL = '/'
     next()
   })

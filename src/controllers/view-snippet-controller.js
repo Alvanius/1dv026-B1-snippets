@@ -97,6 +97,8 @@ export class ViewSnippetController {
    * @param {Function} next - Express next middleware function.
    */
   remove (req, res, next) {
+    req.session.delete = true
+    res.redirect(`/snippet/${req.params.id}`)
   }
 
   /**
@@ -106,6 +108,14 @@ export class ViewSnippetController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  delete (req, res, next) {
+  async delete (req, res, next) {
+    try {
+      await Snippet.deleteOne({ _id: req.params.id })
+      req.session.flash = { type: 'success', text: 'Success! The snippet was removed.' }
+      res.redirect('/snippets/my-page')
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: 'Deleting snippet failed. Please try again.' }
+      res.redirect(`/snippet/${req.params.id}`)
+    }
   }
 }
