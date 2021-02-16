@@ -84,11 +84,14 @@ const main = async () => {
 
   // Error handler.
   app.use(function (err, req, res, next) {
-    // TEMPORARY!
-    // For now, just add basic rendering of the error message when an error occurs.
-    res
-      .status(err.status || 500)
-      .send(err.message)
+    if (err.status === 404) {
+      return res
+        .status(404)
+        .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
+    }
+    return res
+      .status(500)
+      .sendFile(join(directoryFullName, 'views', 'errors', '500.html'))
   })
 
   // ------------------------------------

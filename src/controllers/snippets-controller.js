@@ -87,6 +87,24 @@ export class SnippetsController {
   }
 
   /**
+   * Renders the home page after logging out.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  logout (req, res, next) {
+    req.session.destroy(() => {
+      // this works but shows the /snippets/log-out url
+      /* res.locals.loggedIn = false
+      res.locals.flash = { type: 'success', text: 'You successfully logged out.' }
+      res.render('home/index') */
+      // this works and shows the root url but can't send along a flash message
+      res.redirect('..')
+    })
+  }
+
+  /**
    * Renders the snippet page.
    *
    * @param {object} req - Express request object.
@@ -94,17 +112,20 @@ export class SnippetsController {
    * @param {Function} next - Express next middleware function.
    */
   authenticate (req, res, next) {
-    console.log('cookie looks like: ', req.session)
     if (req.session.userIsLoggedIn) {
-      console.log('user seems to be logged in: ', req.session.user)
-      console.log('userid is: ', req.session.userID)
+      console.log('user seems to be logged in: ', req.session.user, ' userid is: ', req.session.userID)
       res.locals.loggedIn = true
       next()
     } else {
-      console.log('dont believe user is logged in')
-      req.session.flash = { type: 'danger', text: 'No access, please log in' }
-      res.redirect('..')
-      // should I present 404?
+      console.log('IN AUTHENTICATE - dont believe user is logged in')
+      // if I should present no access-flash message
+      /* req.session.flash = { type: 'danger', text: 'No access, please log in' }
+      res.redirect('..') */
+
+      // if I should present 404
+      const error = new Error()
+      error.status = 404
+      next(error)
     }
   }
 }
