@@ -118,4 +118,38 @@ export class ViewSnippetController {
       res.redirect(`/snippet/${req.params.id}`)
     }
   }
+
+  /**
+   * Authorizes a user.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async authorize (req, res, next) {
+    const error = new Error()
+    try {
+      if (req.session.userIsLoggedIn) {
+        res.locals.loggedIn = true
+        const snippet = await Snippet.findOne({ _id: req.params.id })
+        if (snippet.author === req.session.userID) {
+          next()
+        } else {
+          req.session.flash = { type: 'danger', text: 'You don\'t have access to the action requested.' }
+          res.redirect(`/snippet/${req.params.id}`)
+        }
+      } else {
+        console.log('AUTHORIZE - not a logged in owner, access denied')
+        error.status = 404
+        next(error)
+      }
+    } catch (error) {
+      if (req.session.userIsLoggedIn) {
+        req.session.flash = { type: 'danger', text: 'Something went wrong. Please try again.' }
+        res.redirect(`/snippet/${req.params.id}`)
+      } else {
+        next(error)
+      }
+    }
+  }
 }

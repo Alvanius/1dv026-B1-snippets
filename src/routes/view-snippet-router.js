@@ -14,8 +14,8 @@ const controller = new ViewSnippetController()
 
 router.get('/:id', controller.snippetIndex)
 
-router.get('/:id/edit', controller.edit)
-router.post('/:id/update', controller.update)
+router.get('/:id/edit', controller.authorize, controller.edit)
+router.post('/:id/update', controller.authorize, controller.update)
 
-router.get('/:id/remove', controller.remove)
-router.get('/:id/delete', controller.delete)
+router.get('/:id/remove', controller.authorize, controller.remove)
+router.get('/:id/delete', controller.authorize, controller.delete)
