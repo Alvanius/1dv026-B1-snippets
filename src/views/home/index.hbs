@@ -14,18 +14,13 @@
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
 
-                {{#if username }}
-                <input type="text" value="{{username}}" autocomplete="off" required name="username" class="form-control" id="username">
-                {{/if}}
-
-                {{#unless username }}
-                <input type="text" autocomplete="off" required name="username" class="form-control" id="username">
-                {{/unless}}
+                
+                <input type="text" {{#if username }} value="{{username}}" {{/if}} autocomplete="off" required name="username" class="form-control" minlength="1" maxlength="40" id="username">
 
             </div>
             <div class="mb-3">
                 <label for="pwd" class="form-label">Password</label>
-                <input type="password" name="password" minlength="10" required class="form-control" id="pwd">
+                <input type="password" name="password" minlength="10" maxlength="1000" required class="form-control" id="pwd">
             </div>
             <button type="submit" class="mt-4 btn btn-dark">Submit</button>
         </form>

@@ -11,18 +11,21 @@ const snippetSchema = new mongoose.Schema({
   author: {
     type: String,
     required: true,
-    minlength: 1
+    maxlength: 2000
   },
   title: {
     type: String,
     required: true,
     trim: true,
-    minlength: 1
+    minlength: 1,
+    maxlength: 40
   },
   text: {
     type: String,
     required: true,
-    minlength: 1
+    trim: true,
+    minlength: 1,
+    maxlength: 5500
   }
 }, { timestamps: true })
 
