@@ -28,6 +28,7 @@ const main = async () => {
   }
 
   const PORT = process.env.PORT || 5000
+  const baseURL = process.env.BASE_URL || '/'
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
   const app = express()
 
@@ -75,7 +76,7 @@ const main = async () => {
       delete req.session.delete
     }
 
-    res.locals.baseURL = '/'
+    res.locals.baseURL = baseURL
     next()
   })
 
