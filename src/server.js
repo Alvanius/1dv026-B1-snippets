@@ -89,14 +89,21 @@ const main = async () => {
 
   // Error handler.
   app.use(function (err, req, res, next) {
+    let errortext = 'Sorry, but something went wrong.'
+    let error = '500 Internal server error'
+    let title = 'An error occured'
     if (err.status === 404) {
-      return res
-        .status(404)
-        .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
+      errortext = 'Sorry, but the page you were trying to view does not exist.'
+      error = '404 Not Found'
+      title = 'Page not found'
+    } else if (err.status === 403) {
+      errortext = 'You don\'t have access to the action requested.'
+      error = '403 Forbidden'
+      title = 'Forbidden'
     }
-    return res
-      .status(500)
-      .sendFile(join(directoryFullName, 'views', 'errors', '500.html'))
+    res
+      .status(err.status || 500)
+      .render('errors/error', { error, errortext, title })
   })
 
   // ------------------------------------

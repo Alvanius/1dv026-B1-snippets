@@ -135,11 +135,11 @@ export class ViewSnippetController {
         if (snippet.author === req.session.userID) {
           next()
         } else {
-          req.session.flash = { type: 'danger', text: 'You don\'t have access to the action requested.' }
-          res.redirect(`/snippet/${req.params.id}`)
+          console.log('if logged in and not owner, this should log')
+          error.status = 403
+          next(error)
         }
       } else {
-        console.log('AUTHORIZE - not a logged in owner, access denied')
         error.status = 404
         next(error)
       }
