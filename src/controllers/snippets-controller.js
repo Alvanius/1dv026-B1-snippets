@@ -32,7 +32,7 @@ export class SnippetsController {
   }
 
   /**
-   * Renders the snippet page.
+   * Renders the user's home page.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -52,7 +52,7 @@ export class SnippetsController {
   }
 
   /**
-   * Renders the snippet page.
+   * Renders the new snippet page.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -63,15 +63,13 @@ export class SnippetsController {
   }
 
   /**
-   * Renders the snippet page.
+   * Called when a new snippet is submitted.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
   async createSnippetPost (req, res, next) {
-    console.log('here in snippetcreatepost')
-    console.log('user id: ', req.session.userID)
     try {
       const snippet = new Snippet({
         author: req.session.userID,
@@ -82,8 +80,6 @@ export class SnippetsController {
       req.session.flash = { type: 'success', text: 'Snippet created!' }
     } catch (error) {
       req.session.flash = { type: 'danger', text: 'Could not create snippet' }
-      console.log('an error when creating new snippet occured: ', error.message)
-      console.log(error)
     } finally {
       res.redirect('./my-page')
     }
@@ -108,7 +104,7 @@ export class SnippetsController {
   }
 
   /**
-   * Renders the snippet page.
+   * Called to authenticate the user, and render 404 if they're not logged in.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -116,16 +112,9 @@ export class SnippetsController {
    */
   authenticate (req, res, next) {
     if (req.session.userIsLoggedIn) {
-      console.log('user seems to be logged in: ', req.session.user, ' userid is: ', req.session.userID)
       res.locals.loggedIn = true
       next()
     } else {
-      console.log('IN AUTHENTICATE - dont believe user is logged in')
-      // if I should present no access-flash message
-      /* req.session.flash = { type: 'danger', text: 'No access, please log in' }
-      res.redirect('..') */
-
-      // if I should present 404
       const error = new Error()
       error.status = 404
       next(error)

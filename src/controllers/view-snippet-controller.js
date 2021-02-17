@@ -59,7 +59,7 @@ export class ViewSnippetController {
   }
 
   /**
-   * Called to update a snippet.
+   * Called to update the content of a snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -102,7 +102,7 @@ export class ViewSnippetController {
   }
 
   /**
-   * Called to remove a snippet.
+   * Called to delete a snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -120,7 +120,7 @@ export class ViewSnippetController {
   }
 
   /**
-   * Called to provide a flashmessage that a snippet was not deleted.
+   * Called to provide a flashmessage indicating that a snippet was not deleted.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -147,7 +147,6 @@ export class ViewSnippetController {
         if (snippet.author === req.session.userID) {
           next()
         } else {
-          console.log('if logged in and not owner, this should log')
           error.status = 403
           next(error)
         }

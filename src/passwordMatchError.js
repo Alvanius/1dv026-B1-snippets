@@ -6,7 +6,7 @@
  */
 
 /**
- * Represents the custom error WrongSiteStructureError.
+ * Represents the custom error PasswordMatchError.
  *
  * @class
  */

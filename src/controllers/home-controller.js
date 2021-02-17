@@ -35,7 +35,6 @@ export class HomeController {
   async loginPost (req, res, next) {
     try {
       const user = await User.authenticate(req.body.username, req.body.password)
-      console.log('user is authenticated')
       req.session.regenerate(() => {
         req.session.user = user.username
         req.session.userID = user._id
@@ -43,10 +42,8 @@ export class HomeController {
         res.redirect('./snippets/my-page')
       })
     } catch (error) {
-      console.log('something went wrong logging in: ', error.message)
-      req.session.flash = { type: 'danger', text: 'Could not log in' }
+      req.session.flash = { type: 'danger', text: 'Log in failed, make sure the right credentials are entered.' }
       res.redirect('./')
-      // Separate wrong credentials from other errors maybe?
     }
   }
 
@@ -71,17 +68,15 @@ export class HomeController {
       })
       await user.save()
       res.locals.flash = { type: 'success', text: 'Success! Registration completed.' }
-      // if we want to automatically fill in the user's username use this below:
+      // passing the username along to render it in the log-in form
       res.render('home/index', { username: req.body.username })
-      // if not, just res.redirect('./')
     } catch (error) {
       let infoMessage = 'Registration failed, please try again'
       if (error.code === 11000) {
-        infoMessage = `The username ${error.keyValue.username} is already taken. Think of something more original and try again!`
+        infoMessage = `The username ${error.keyValue.username} is taken. Think of something more original and try again!`
       } else if (error instanceof PasswordMatchError) {
         infoMessage = error.message + ' Try again.'
       }
-      console.log('ERROR something went wrong on registration ' + error.message)
       res.locals.flash = { type: 'danger', text: infoMessage }
 
       const data = {
@@ -106,14 +101,13 @@ export class HomeController {
   }
 
   /**
-   * Renders the home page after logging out.
+   * Renders the page where all snippets can be viewed by an anonymous user.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
   async guestSnippetsIndex (req, res, next) {
-    /* res.locals.active = { browse: true} */
     const viewData = {
       snippets: (await Snippet.find({}))
         .map(snippet => ({
