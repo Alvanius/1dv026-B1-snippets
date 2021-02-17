@@ -151,3 +151,22 @@ a {
 a:hover, #registerlink:hover, #logo:hover  {
   color: white;
 }
+
+
+@media only screen and (max-width: 900px) {
+  .snippetwrapper {
+    grid-template-columns: minmax(400px, max-content);
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .snippetwrapper {
+    grid-template-columns: repeat(2, minmax(400px, max-content));
+  }
+}
+
+@media only screen and (max-width: 1700px) {
+  .snippetwrapper {
+    grid-template-columns: repeat(3, minmax(400px, max-content));
+  }
+}
