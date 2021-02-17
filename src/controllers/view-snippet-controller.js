@@ -79,13 +79,13 @@ export class ViewSnippetController {
           text: 'The snippet you attempted to edit seems to have been removed.'
         }
       }
-      res.redirect('/snippets/my-page')
+      res.redirect('./snippets/my-page')
     } catch (error) {
       req.session.flash = {
         type: 'danger',
         text: 'Something went wrong updating, please re-try.'
       }
-      res.redirect(`/snippet/${req.params.id}/edit`)
+      res.redirect(`./snippet/${req.params.id}/edit`)
     }
   }
 
@@ -98,7 +98,7 @@ export class ViewSnippetController {
    */
   remove (req, res, next) {
     req.session.delete = true
-    res.redirect(`/snippet/${req.params.id}`)
+    res.redirect(`./snippet/${req.params.id}`)
   }
 
   /**
@@ -112,10 +112,10 @@ export class ViewSnippetController {
     try {
       await Snippet.deleteOne({ _id: req.params.id })
       req.session.flash = { type: 'success', text: 'Success! The snippet was removed.' }
-      res.redirect('/snippets/my-page')
+      res.redirect('./snippets/my-page')
     } catch (error) {
       req.session.flash = { type: 'danger', text: 'Deleting snippet failed. Please try again.' }
-      res.redirect(`/snippet/${req.params.id}`)
+      res.redirect(`./snippet/${req.params.id}`)
     }
   }
 
@@ -146,7 +146,7 @@ export class ViewSnippetController {
     } catch (error) {
       if (req.session.userIsLoggedIn) {
         req.session.flash = { type: 'danger', text: 'Something went wrong. Please try again.' }
-        res.redirect(`/snippet/${req.params.id}`)
+        res.redirect(`./snippet/${req.params.id}`)
       } else {
         next(error)
       }
