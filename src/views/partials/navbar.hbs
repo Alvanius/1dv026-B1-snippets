@@ -1,8 +1,23 @@
-{{#if loggedIn }}
+<style>
+    #user {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding: 13px;
+        background-color: #9d809d;
+        height: 70px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    #usericon{
+        margin: 0 10px;
+    }
+</style>{{#if loggedIn }}
 <a id="logo" href="./snippets/my-page" class="{{#if active.page}}active{{/if}}">My page</a>
 <a href="./snippets" class="{{#if active.snippets}}active{{/if}}">Snippets</a>
 <a href="./snippets/new" class="{{#if active.new}}active{{/if}}">New</a>
 <a href="./snippets/log-out">Log out</a>
+<div id="user"><img id="usericon" src="./images/user.png" alt="Usericon">{{viewData.user}}</div>
 {{/if}}
 
 {{#unless loggedIn }}

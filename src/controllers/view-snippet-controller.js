@@ -21,17 +21,20 @@ export class ViewSnippetController {
   async snippetIndex (req, res, next) {
     try {
       const snippet = await Snippet.findOne({ _id: req.params.id })
-      if (req.session.userIsLoggedIn) {
-        res.locals.loggedIn = true
-        // check if user is author/owner and then also add possibility to edit and delete snippet in view
-        if (snippet.author === req.session.userID) {
-          res.locals.snippetOwner = true
-        }
-      }
+
       const viewData = {
         title: snippet.title,
         text: snippet.text,
         id: snippet._id
+      }
+
+      if (req.session.userIsLoggedIn) {
+        res.locals.loggedIn = true
+        viewData.user = req.session.user
+        // check if user is author/owner and then also add possibility to edit and delete snippet in view
+        if (snippet.author === req.session.userID) {
+          res.locals.snippetOwner = true
+        }
       }
       res.render('snippet/index', { viewData })
     } catch (error) {
@@ -53,7 +56,8 @@ export class ViewSnippetController {
     const viewData = {
       title: snippet.title,
       text: snippet.text,
-      id: snippet._id
+      id: snippet._id,
+      user: req.session.user
     }
     res.render('snippet/edit', { viewData })
   }

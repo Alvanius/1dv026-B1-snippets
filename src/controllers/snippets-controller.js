@@ -59,7 +59,7 @@ export class SnippetsController {
    * @param {Function} next - Express next middleware function.
    */
   newSnippetIndex (req, res, next) {
-    res.render('snippets/new', { active: { new: true }, user: req.session.user })
+    res.render('snippets/new', { viewData: { user: req.session.user } })
   }
 
   /**

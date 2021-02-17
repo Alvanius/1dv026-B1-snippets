@@ -4,12 +4,21 @@ body {
   position: relative;
 }
 
+#welcome {
+  margin-bottom: 120px;
+  margin-top: 100px;
+}
+
 .start-form {
   width: 600px;
   background-color: white;  
   height: max-content;
   padding: 20px;
   border-radius: 15px;
+}
+
+.links {
+  align-self: flex-end;
 }
 
 .colorful {
@@ -21,22 +30,23 @@ body {
 }
 
 .big {
+  margin-top: 60px;
   text-align: center;
   font-size: 100px;
-  margin: auto;
+  margin: 30px auto;
+  margin-top: 100px;
 }
 
 .medium {
   text-align: center;
   font-size: 80px;
-  margin: auto;
   width: 800px;
   font-weight: 700;
 }
 
 .spacing {
+  margin: 30px auto;
   margin-top: 100px;
-  margin-bottom: 120px;
 }
 
 .over-form-text {
@@ -51,12 +61,15 @@ body {
 
 .snippet {
   background-color:  #eae2dd;
-  background-image: linear-gradient(#f9b8a5, #d26b6b);
+  background-image: linear-gradient(#fffbfa, #d7c0c0);
   width: 400px;
   padding: 10px 25px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  max-height: 650px;
+  min-height: 300px;
+  height: max-content;
 }
 
 .snippet strong {
@@ -70,7 +83,6 @@ body {
   word-break: break-word;
   white-space: pre-wrap;
   margin-top: clamp(2px, 1rem, 2rem);
-  min-height: 400px;
 }
 
 .snippetwrapper {
@@ -78,9 +90,9 @@ body {
   width: max-content;
   display: grid;
   grid-template-columns: repeat(4, minmax(400px, max-content));
-  grid-auto-rows: minmax(auto, 600px);
-  gap: 20px;
+  gap: 10px;
   padding: 20px;
+  row-gap: 25px;
 }
 
 .onewrapper {
