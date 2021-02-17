@@ -1,7 +1,8 @@
-<a href="./snippets/new">New snippet</a>
-
-<h1>My snippets</h1>
+<h1 class="py-5 colorful medium">My snippets</h1>
+<a id="newsnippetlink" href="./snippets/new">Create new snippet</a>
+{{#if viewData.snippets.length }}
 {{>snippets}}
+{{/if}}
 
 {{#unless viewData.snippets.length }}
 <h2>Nice to see you {{viewData.user}}. You dont have any snippets yet</h2>
