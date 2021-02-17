@@ -19,3 +19,4 @@ router.post('/:id/update', controller.authorize, controller.update)
 
 router.get('/:id/remove', controller.authorize, controller.remove)
 router.get('/:id/delete', controller.authorize, controller.delete)
+router.get('/:id/nodelete', controller.authorize, controller.nodelete)

@@ -79,13 +79,13 @@ export class ViewSnippetController {
           text: 'The snippet you attempted to edit seems to have been removed.'
         }
       }
-      res.redirect('./snippets/my-page')
+      res.redirect('../../snippets/my-page')
     } catch (error) {
       req.session.flash = {
         type: 'danger',
         text: 'Something went wrong updating, please re-try.'
       }
-      res.redirect(`./snippet/${req.params.id}/edit`)
+      res.redirect('../edit')
     }
   }
 
@@ -98,7 +98,7 @@ export class ViewSnippetController {
    */
   remove (req, res, next) {
     req.session.delete = true
-    res.redirect(`./snippet/${req.params.id}`)
+    res.redirect(`../${req.params.id}`)
   }
 
   /**
@@ -112,11 +112,23 @@ export class ViewSnippetController {
     try {
       await Snippet.deleteOne({ _id: req.params.id })
       req.session.flash = { type: 'success', text: 'Success! The snippet was removed.' }
-      res.redirect('./snippets/my-page')
+      res.redirect('../../snippets/my-page')
     } catch (error) {
       req.session.flash = { type: 'danger', text: 'Deleting snippet failed. Please try again.' }
-      res.redirect(`./snippet/${req.params.id}`)
+      res.redirect(`../${req.params.id}`)
     }
+  }
+
+  /**
+   * Called to provide a flashmessage that a snippet was not deleted.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  nodelete (req, res, next) {
+    req.session.flash = { type: 'success', text: 'It\'s okay, the snippet stays for now.' }
+    res.redirect(`../${req.params.id}`)
   }
 
   /**
@@ -146,7 +158,7 @@ export class ViewSnippetController {
     } catch (error) {
       if (req.session.userIsLoggedIn) {
         req.session.flash = { type: 'danger', text: 'Something went wrong. Please try again.' }
-        res.redirect(`./snippet/${req.params.id}`)
+        res.redirect(`../${req.params.id}`)
       } else {
         next(error)
       }
