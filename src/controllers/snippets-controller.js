@@ -94,7 +94,7 @@ export class SnippetsController {
    */
   logout (req, res, next) {
     req.session.destroy(() => {
-      // this works but shows the /snippets/log-out url
+      // this works but shows the /snippets/log-out url, so if the user refresh they'll get 404
       /* res.locals.loggedIn = false
       res.locals.flash = { type: 'success', text: 'You successfully logged out.' }
       res.render('home/index') */

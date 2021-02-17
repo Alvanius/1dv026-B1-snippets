@@ -26,10 +26,12 @@ body {
   margin: auto;
 }
 
-.medium{
+.medium {
   text-align: center;
   font-size: 80px;
   margin: auto;
+  width: 800px;
+  font-weight: 700;
 }
 
 .spacing {
