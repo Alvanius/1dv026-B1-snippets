@@ -1,0 +1,139 @@
+body {
+  margin: 0px;
+  background-color:white;
+  position: relative;
+}
+
+.start-form {
+  width: 600px;
+  background-color: white;  
+  height: max-content;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.colorful {
+  color: purple;
+  background-image: linear-gradient(to left, violet, indigo, orange);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.big {
+  text-align: center;
+  font-size: 100px;
+  margin: auto;
+}
+
+.medium{
+  text-align: center;
+  font-size: 80px;
+  margin: auto;
+}
+
+.spacing {
+  margin-top: 100px;
+  margin-bottom: 120px;
+}
+
+.over-form-text {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.active {
+  color: white;
+  font-weight: 500;
+}
+
+.snippet {
+  background-color:  #eae2dd;
+  background-image: linear-gradient(#f9b8a5, #d26b6b);
+  width: 400px;
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.snippet strong {
+  font-size: 20px;
+  word-break: break-word;
+}
+
+.snippet p {
+  color: darkslategray;
+  overflow: auto;
+  word-break: break-word;
+  white-space: pre-wrap;
+  margin-top: clamp(2px, 1rem, 2rem);
+  min-height: 400px;
+}
+
+.snippetwrapper {
+  margin: 0 auto;
+  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(400px, max-content));
+  grid-auto-rows: minmax(auto, 600px);
+  gap: 20px;
+  padding: 20px;
+}
+
+.onewrapper {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding: 50px;
+}
+
+nav {
+  background-color: black;
+  height: 70px;
+  font-size: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: grey;
+  width: 150px;
+  text-align: center;
+}
+
+.form-label, .form-control {
+  font-size: 25px;
+}
+
+#logo {
+  color:rgb(194, 157, 192);
+  font-weight: 800;
+  }
+
+  #login {
+    width: 700px;
+  }
+
+#registrationlinkwrapper {
+  height: max-content;
+  padding: 20px;
+}
+
+#registerlink {
+  color: rgb(74, 75, 145);
+  font-size: 35px;
+}
+
+#guestlink {
+  padding: 20px;
+  font-size: 40px;
+  width: 600px;
+}
+
+a:hover, #registerlink:hover, #logo:hover  {
+  color: white;
+}

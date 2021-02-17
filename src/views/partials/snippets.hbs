@@ -1,4 +1,17 @@
-<base href="{{baseURL}}" />
+<style>
+.open {
+  width: 16px;
+  height: 20px;
+}
+
+.open:hover {
+  filter: invert(50%);
+}
+
+.links {
+  align-self: flex-end;
+}
+</style>
 {{#if viewData.snippets.length }}
 <div class="snippetwrapper">
 {{#each viewData.snippets}}
