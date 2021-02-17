@@ -12,6 +12,31 @@
     #usericon{
         margin: 0 10px;
     }
+
+    @media only screen and (max-width: 1300px) {
+        nav {
+            justify-content: flex-start;
+            gap: 5px;
+        }
+    }
+
+    @media only screen and (max-width: 850px) {
+
+        nav {
+            font-size: 25px;
+        }
+
+        #user {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 450px) {
+
+        nav {
+            font-size: 20px;
+        }
+    }
 </style>{{#if loggedIn }}
 <a id="logo" href="./snippets/my-page" class="{{#if active.page}}active{{/if}}">My page</a>
 <a href="./snippets" class="{{#if active.snippets}}active{{/if}}">Snippets</a>

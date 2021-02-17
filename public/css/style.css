@@ -29,6 +29,14 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.colorful2 {
+  color: purple;
+  background-image: linear-gradient(to left,  orange, violet, indigo, orange);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .big {
   margin-top: 60px;
   text-align: center;
@@ -40,8 +48,8 @@ body {
 .medium {
   text-align: center;
   font-size: 80px;
-  width: 800px;
   font-weight: 700;
+  padding: 10px;
 }
 
 .spacing {
@@ -161,6 +169,14 @@ a:hover, #registerlink:hover, #logo:hover  {
 @media only screen and (max-width: 1300px) {
   .snippetwrapper {
     grid-template-columns: repeat(2, minmax(400px, max-content));
+  }
+
+  .big {
+    font-size: 80px;
+  }
+  
+  .medium {
+    font-size: 60px;
   }
 }
 

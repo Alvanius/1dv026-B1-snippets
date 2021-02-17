@@ -3,14 +3,22 @@
     display: flex;
     gap: 10px;
     width: max-content;
-    margin: auto;
+    margin: 10px auto;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 70px;
+    padding: 10px;
 }
+
+@media only screen and (max-width: 850px) {
+
+       #top {
+           flex-direction: column;
+       }
+    }
 </style>
 <div id="top">
-    <h1 class="py-5 colorful medium">My snippets</h1>
+    <h1 class="colorful medium">My snippets</h1>
 <a  class="btn btn-outline-dark btn-lg" href="./snippets/new">Create snippet</a>
 </div>
 
