@@ -6,7 +6,7 @@
  */
 
 import { Snippet } from '../models/snippet.js'
-import { User } from '../models/user.js'
+
 /**
  * Encapsulates a controller.
  */
