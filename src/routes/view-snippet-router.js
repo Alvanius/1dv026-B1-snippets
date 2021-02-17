@@ -1,5 +1,5 @@
 /**
- * Registration routes.
+ * View-snippet routes for a single snippet.
  *
  * @author Alva Persson
  * @version 1.0.0

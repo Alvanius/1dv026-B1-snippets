@@ -1,5 +1,5 @@
 /**
- * Registration routes.
+ * Snippet-app routes for a logged in user.
  *
  * @author Alva Persson
  * @version 1.0.0

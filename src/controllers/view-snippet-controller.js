@@ -1,5 +1,5 @@
 /**
- * View snippets controller.
+ * View snippet controller.
  *
  * @author Alva Persson
  * @version 1.0.0
