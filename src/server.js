@@ -71,11 +71,15 @@ const main = async () => {
       res.locals.flash = req.session.flash
       delete req.session.flash
     }
-    if (req.session.delete) {
-      res.locals.delete = req.session.delete
-      delete req.session.delete
+    if (req.session.deleteSnippet) {
+      res.locals.deleteSnippet = req.session.deleteSnippet
+      delete req.session.deleteSnippet
     }
 
+    if (req.session.userIsLoggedIn) {
+      res.locals.loggedIn = true
+      res.locals.nameOfUser = req.session.user
+    }
     res.locals.baseURL = baseURL
     next()
   })

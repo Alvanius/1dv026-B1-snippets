@@ -18,8 +18,15 @@
     width: 80px;
     display: inline-block;
     margin: 0 10px;
-    border: 2px solid white;
   }
+
+#deleteoptions {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
 
   .solosnippet {
     background-color: rgb(233, 180, 150);
@@ -54,19 +61,16 @@
 <p>{{viewData.text}}</p>
 </div>
 
-{{#if info }}
-<h1>Creator of the snippet is: {{info.author}}</h1>
-<h1>Author is viewing this rn : {{info.status}}</h1>
-{{/if}}
 
 
-
-{{#if delete }}
+{{#if deleteSnippet }}
 <div id="deletewrapper">
     <h5>Are you sure you want to delete this snippet?</h5>
     <div id="deleteoptions">
-        <a class="btn btn-outline-danger" href="./snippet/{{viewData.id}}/delete">Yes</a>
-        <a class="btn btn-outline-dark" href="./snippet/{{viewData.id}}/nodelete">No</a>
+      <form method="post" action="./snippet/{{viewData.id}}/delete">
+      <button type="submit" class=" deletelink btn btn-outline-danger">Yes</button>
+      </form>
+      <a class="deletelink btn btn-outline-dark" href="./snippet/{{viewData.id}}/nodelete">No</a>  
     </div>
 </div>
 {{/if}}

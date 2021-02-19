@@ -28,7 +28,7 @@ export class SnippetsController {
         })),
       user: req.session.user
     }
-    res.render('snippets/index', { viewData, active: { snippets: true } })
+    res.render('snippets/index', { viewData, active: { snippets: true }, title: 'All snippets' })
   }
 
   /**
@@ -48,7 +48,7 @@ export class SnippetsController {
         })),
       user: req.session.user
     }
-    res.render('snippets/mypage', { viewData })
+    res.render('snippets/mypage', { viewData, title: 'My page' })
   }
 
   /**
@@ -59,7 +59,7 @@ export class SnippetsController {
    * @param {Function} next - Express next middleware function.
    */
   newSnippetIndex (req, res, next) {
-    res.render('snippets/new', { viewData: { user: req.session.user } })
+    res.render('snippets/new', { viewData: { user: req.session.user }, active: { new: true }, title: 'New snippet' })
   }
 
   /**
@@ -111,13 +111,11 @@ export class SnippetsController {
    * @param {Function} next - Express next middleware function.
    */
   authenticate (req, res, next) {
-    if (req.session.userIsLoggedIn) {
-      res.locals.loggedIn = true
-      next()
-    } else {
+    if (!req.session.userIsLoggedIn) {
       const error = new Error()
       error.status = 404
       next(error)
     }
+    next()
   }
 }

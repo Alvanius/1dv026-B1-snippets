@@ -27,16 +27,11 @@ export class ViewSnippetController {
         text: snippet.text,
         id: snippet._id
       }
-
-      if (req.session.userIsLoggedIn) {
-        res.locals.loggedIn = true
-        viewData.user = req.session.user
-        // check if user is author/owner and then also add possibility to edit and delete snippet in view
-        if (snippet.author === req.session.userID) {
-          res.locals.snippetOwner = true
-        }
+      // check if user is author/owner and then also add possibility to edit and delete snippet in view
+      if (req.session.userIsLoggedIn && snippet.author === req.session.userID) {
+        res.locals.snippetOwner = true
       }
-      res.render('snippet/index', { viewData })
+      res.render('snippet/index', { viewData, title: 'Snippet view' })
     } catch (error) {
       const myerror = new Error()
       myerror.status = 404
@@ -56,10 +51,9 @@ export class ViewSnippetController {
     const viewData = {
       title: snippet.title,
       text: snippet.text,
-      id: snippet._id,
-      user: req.session.user
+      id: snippet._id
     }
-    res.render('snippet/edit', { viewData })
+    res.render('snippet/edit', { viewData, title: 'Edit snippet' })
   }
 
   /**
@@ -101,7 +95,7 @@ export class ViewSnippetController {
    * @param {Function} next - Express next middleware function.
    */
   remove (req, res, next) {
-    req.session.delete = true
+    req.session.deleteSnippet = true
     res.redirect(`../${req.params.id}`)
   }
 
@@ -145,26 +139,16 @@ export class ViewSnippetController {
   async authorize (req, res, next) {
     const error = new Error()
     try {
-      if (req.session.userIsLoggedIn) {
-        res.locals.loggedIn = true
-        const snippet = await Snippet.findOne({ _id: req.params.id })
-        if (snippet.author === req.session.userID) {
-          next()
-        } else {
-          error.status = 403
-          next(error)
-        }
+      const snippet = await Snippet.findOne({ _id: req.params.id })
+      if (snippet.author === req.session.userID) {
+        next()
       } else {
-        error.status = 404
+        error.status = 403
         next(error)
       }
     } catch (error) {
-      if (req.session.userIsLoggedIn) {
-        req.session.flash = { type: 'danger', text: 'Something went wrong. Please try again.' }
-        res.redirect(`../${req.params.id}`)
-      } else {
-        next(error)
-      }
+      req.session.flash = { type: 'danger', text: 'Something went wrong. Please try again.' }
+      res.redirect(`../${req.params.id}`)
     }
   }
 }

@@ -21,7 +21,7 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   index (req, res, next) {
-    res.render('home/index', { links: '<a href="/#" id="logo" id="current">Home</a><a href="/browse-snippets">Snippets</a><a href="/sign-up">Sign-up</a>' })
+    res.render('home/index', { title: 'Welcome'})
   }
 
   /**
@@ -97,7 +97,7 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   signupIndex (req, res, next) {
-    res.render('home/signup', { active: { signup: true } })
+    res.render('home/signup', { active: { signup: true }, title: 'Sign up' })
   }
 
   /**
@@ -116,6 +116,21 @@ export class HomeController {
           id: snippet._id
         }))
     }
-    res.render('home/browsesnippets', { viewData, active: { browse: true } })
+    res.render('home/browsesnippets', { viewData, active: { browse: true }, title: 'Browse snippets' })
+  }
+
+  /**
+   * If the user is already logged in, redirect to their home-page.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  redirectIfLoggedIn (req, res, next) {
+    if (req.session.userIsLoggedIn) {
+      res.redirect('./snippets/my-page')
+    } else {
+      next()
+    }
   }
 }
